@@ -1,0 +1,141 @@
+object LoginForm: TLoginForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 460
+  ClientWidth = 320
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMobile = True
+  DesignerWidth = 320
+  DesignerHeight = 480
+  DesignerDeviceName = 'iPhone'
+  DesignerOrientation = 0
+  DesignerOSVersion = '7'
+  object LoginPanel: TPanel
+    Align = Client
+    Height = 460.000000000000000000
+    Visible = False
+    Width = 320.000000000000000000
+    TabOrder = 0
+    object LoginButton: TButton
+      Height = 33.000000000000000000
+      Position.X = 16.000000000000000000
+      Position.Y = 193.000000000000000000
+      TabOrder = 5
+      Text = #1042#1093#1086#1076
+      Width = 289.000000000000000000
+      OnClick = LoginButtonClick
+    end
+    object PasswordEdit: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Password = True
+      Text = 'G6n9P4q7'
+      Position.X = 16.000000000000000000
+      Position.Y = 153.000000000000000000
+      Width = 289.000000000000000000
+      Height = 30.000000000000000000
+    end
+    object PasswordLabel: TLabel
+      Height = 21.000000000000000000
+      Position.X = 16.000000000000000000
+      Position.Y = 121.000000000000000000
+      Text = #1055#1072#1088#1086#1083#1100':'
+      Width = 82.000000000000000000
+    end
+    object LoginEdit: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 2
+      Text = 'Z.'#1056#1101#1081#1079#1086#1088
+      Position.X = 16.000000000000000000
+      Position.Y = 81.000000000000000000
+      Width = 289.000000000000000000
+      Height = 30.000000000000000000
+    end
+    object LoginLabel: TLabel
+      Height = 21.000000000000000000
+      Position.X = 16.000000000000000000
+      Position.Y = 49.000000000000000000
+      Text = #1051#1086#1075#1080#1085':'
+      Width = 82.000000000000000000
+    end
+    object LogoToolBar: TToolBar
+      Height = 44.000000000000000000
+      TabOrder = 7
+      Width = 320.000000000000000000
+      object LogoLabel: TLabel
+        Align = Client
+        Height = 44.000000000000000000
+        TextSettings.HorzAlign = Center
+        Text = 'Zhyk.Ru Chat - '#1042#1093#1086#1076
+        Width = 320.000000000000000000
+      end
+    end
+  end
+  object Indicator: TAniIndicator
+    Align = Center
+    Enabled = True
+    Height = 50.000000000000000000
+    Width = 50.000000000000000000
+  end
+  object CaptchaPanel: TPanel
+    Align = Client
+    Height = 460.000000000000000000
+    Visible = False
+    Width = 320.000000000000000000
+    TabOrder = 10
+    object CaptchaEdit: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 9
+      ReturnKeyType = Send
+      Position.X = 16.000000000000000000
+      Position.Y = 165.000000000000000000
+      Width = 289.000000000000000000
+      Height = 30.000000000000000000
+    end
+    object CaptchaImage: TImage
+      MultiResBitmap = <
+        item
+        end>
+      Height = 97.000000000000000000
+      Position.X = 16.000000000000000000
+      Position.Y = 53.000000000000000000
+      Width = 289.000000000000000000
+      WrapMode = Stretch
+    end
+    object CaptchaButton: TButton
+      Height = 40.000000000000000000
+      Position.X = 16.000000000000000000
+      Position.Y = 207.000000000000000000
+      TabOrder = 11
+      Text = #1055#1088#1086#1076#1086#1083#1078#1080#1090#1100
+      Width = 289.000000000000000000
+      OnClick = CaptchaButtonClick
+    end
+    object RefreshCaptchaButton: TButton
+      Height = 44.000000000000000000
+      Position.X = 261.000000000000000000
+      Position.Y = 53.000000000000000000
+      StyleLookup = 'refreshtoolbutton'
+      TabOrder = 12
+      Width = 44.000000000000000000
+      OnClick = RefreshCaptchaButtonClick
+    end
+    object CaptchaToolBar: TToolBar
+      Height = 44.000000000000000000
+      TabOrder = 14
+      Width = 320.000000000000000000
+      object CaptchaLabel: TLabel
+        Align = Client
+        Height = 44.000000000000000000
+        TextSettings.HorzAlign = Center
+        Text = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1089' '#1082#1072#1088#1090#1080#1085#1082#1080
+        Width = 320.000000000000000000
+      end
+    end
+  end
+end

@@ -1,0 +1,55 @@
+object SettingsForm: TSettingsForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 460
+  ClientWidth = 320
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 320
+  DesignerHeight = 480
+  DesignerDeviceName = 'iPhone'
+  DesignerOrientation = 0
+  DesignerOSVersion = '7'
+  object LogoutButton: TButton
+    Height = 30.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 56.000000000000000000
+    StyleLookup = 'listitemdeletebutton'
+    TabOrder = 0
+    Text = #1042#1099#1081#1090#1080
+    Width = 305.000000000000000000
+    OnClick = LogoutButtonClick
+  end
+  object SettingsToolBat: TToolBar
+    Height = 44.000000000000000000
+    TabOrder = 1
+    Width = 320.000000000000000000
+    object CloseButton: TButton
+      Height = 44.000000000000000000
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 0
+      Text = #1053#1072#1079#1072#1076
+      Width = 81.000000000000000000
+      OnClick = CloseButtonClick
+    end
+    object SettingsLabel: TLabel
+      Height = 21.000000000000000000
+      Position.X = 118.000000000000000000
+      Position.Y = 12.000000000000000000
+      Text = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+      Width = 113.000000000000000000
+    end
+  end
+  object AboutLabel: TLabel
+    Align = MostBottom
+    Height = 60.000000000000000000
+    Position.Y = 400.000000000000000000
+    StyleLookup = 'listboxitemdetaillabel'
+    TextSettings.HorzAlign = Center
+    Text = '(c) Z.'#1056#1101#1081#1079#1086#1088' zt.am 2014'
+    Width = 320.000000000000000000
+  end
+end
