@@ -109,7 +109,7 @@ end;
 
 procedure TMainForm.IncomeBottomUpdateTimerTimer(Sender: TObject);
 begin
-  if IncomeView.ScrollViewPos < IncomeCurrentMaxScroll + 15 then
+  if IncomeView.ScrollViewPos < IncomeCurrentMaxScroll + 19 then
   begin
     IncomeBottomUpdateTimer.Enabled := false;
     IncomeBottomHintLabel.Visible   := false;
@@ -127,7 +127,7 @@ end;
 
 procedure TMainForm.IncomeTopUpdateTimerTimer(Sender: TObject);
 begin
-  if IncomeView.ScrollViewPos > -15 then
+  if IncomeView.ScrollViewPos > -19 then
   begin
     IncomeTopUpdateTimer.Enabled := false;
     IncomeTopHintLabel.Visible   := false;
@@ -150,7 +150,7 @@ end;
 
 procedure TMainForm.IncomeViewMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
 begin
-  if DisableScrollActions or UpdatingIncome or ReloadingIncome then
+  if {DisableScrollActions or} UpdatingIncome or ReloadingIncome then
     exit;
   if IncomeView.ScrollViewPos < -80 then
   begin

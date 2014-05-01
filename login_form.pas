@@ -11,15 +11,6 @@ uses
 
 type
   TLoginForm = class(TForm)
-    LoginPanel: TPanel;
-    LoginButton: TButton;
-    PasswordEdit: TEdit;
-    PasswordLabel: TLabel;
-    LoginEdit: TEdit;
-    LoginLabel: TLabel;
-    Indicator: TAniIndicator;
-    LogoToolBar: TToolBar;
-    LogoLabel: TLabel;
     CaptchaPanel: TPanel;
     CaptchaEdit: TEdit;
     CaptchaImage: TImage;
@@ -27,6 +18,14 @@ type
     RefreshCaptchaButton: TButton;
     CaptchaToolBar: TToolBar;
     CaptchaLabel: TLabel;
+    LoginPanel: TPanel;
+    LoginButton: TButton;
+    PasswordEdit: TEdit;
+    PasswordLabel: TLabel;
+    LoginEdit: TEdit;
+    LoginLabel: TLabel;
+    LogoToolBar: TToolBar;
+    LogoLabel: TLabel;
     procedure LoginButtonClick(Sender: TObject);
     procedure RefreshCaptchaButtonClick(Sender: TObject);
     procedure CaptchaButtonClick(Sender: TObject);
@@ -81,13 +80,11 @@ begin
     else
     begin
       DeleteFile(COOKIE_FILE);
-      Indicator.Visible  := false;
       LoginPanel.Visible := true;
     end;
   end
   else
   begin
-    Indicator.Visible  := false;
     LoginPanel.Visible := true;
   end;
 end;
@@ -121,7 +118,6 @@ begin
   end;
   LoginPanel.Visible   := true;
   CaptchaPanel.Visible := false;
-  Indicator.Visible    := false;
 end;
 
 procedure TLoginForm.LoginButtonClick(Sender: TObject);

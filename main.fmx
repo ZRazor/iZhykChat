@@ -74,6 +74,8 @@ object MainForm: TMainForm
         TabOrder = 0
         Width = 320.000000000000000000
         OnMouseMove = IncomeViewMouseMove
+        ItemAppearance.ItemHeight = 50
+        ItemAppearance.ItemEditHeight = 50
         OnDeletingItem = IncomeViewDeletingItem
         DeleteButtonText = #1059#1076#1072#1083#1080#1090#1100
         object IncomeBottomIndicator: TAniIndicator
