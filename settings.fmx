@@ -1,7 +1,7 @@
 object SettingsForm: TSettingsForm
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
   ClientHeight = 460
   ClientWidth = 320
   FormFactor.Width = 320
@@ -14,6 +14,7 @@ object SettingsForm: TSettingsForm
   DesignerOrientation = 0
   DesignerOSVersion = '7'
   object LogoutButton: TButton
+    Anchors = [akLeft, akTop, akRight]
     Height = 30.000000000000000000
     Position.X = 8.000000000000000000
     Position.Y = 56.000000000000000000
@@ -45,8 +46,8 @@ object SettingsForm: TSettingsForm
   end
   object AboutLabel: TLabel
     Align = MostBottom
-    Height = 60.000000000000000000
-    Position.Y = 400.000000000000000000
+    Height = 84.000000000000000000
+    Position.Y = 376.000000000000000000
     StyleLookup = 'listboxitemdetaillabel'
     TextSettings.HorzAlign = Center
     Text = '(c) Z.'#1056#1101#1081#1079#1086#1088' zt.am 2014'

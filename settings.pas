@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  chat_component;
+  zhyk_component;
 
 type
   TSettingsForm = class(TForm)
@@ -30,7 +30,7 @@ implementation
 
 {$R *.fmx}
 
-uses chat, login_form;
+uses main, login_form;
 
 procedure TSettingsForm.CloseButtonClick(Sender: TObject);
 begin

@@ -1,0 +1,144 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 460
+  ClientWidth = 320
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone]
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  DesignerMobile = True
+  DesignerWidth = 320
+  DesignerHeight = 480
+  DesignerDeviceName = 'iPhone'
+  DesignerOrientation = 0
+  DesignerOSVersion = '7'
+  object MainToolBar: TToolBar
+    Height = 44.000000000000000000
+    TabOrder = 0
+    Width = 320.000000000000000000
+    object MainLabel: TLabel
+      Align = Contents
+      Height = 44.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = #1057#1086#1086#1073#1097#1077#1085#1080#1103
+      Width = 320.000000000000000000
+    end
+    object SettingsButton: TButton
+      Align = MostRight
+      Height = 44.000000000000000000
+      Position.X = 215.000000000000000000
+      TabOrder = 0
+      Text = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+      Width = 105.000000000000000000
+      OnClick = SettingsButtonClick
+    end
+    object NewMsgButton: TButton
+      Align = MostLeft
+      Height = 44.000000000000000000
+      StyleLookup = 'addtoolbutton'
+      TabOrder = 1
+      Width = 44.000000000000000000
+    end
+  end
+  object MsgTabs: TTabControl
+    Align = Client
+    FullSize = True
+    Height = 416.000000000000000000
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 1
+    TabPosition = Bottom
+    Width = 320.000000000000000000
+    object IncomeTab: TTabItem
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 19.000000000000000000
+      StyledSettings = [Family, Style, FontColor]
+      Height = 49.000000000000000000
+      IsSelected = True
+      TabOrder = 0
+      Text = #1042#1093#1086#1076#1103#1097#1080#1077
+      Width = 160.000000000000000000
+      object IncomeView: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Height = 367.000000000000000000
+        TabOrder = 0
+        Width = 320.000000000000000000
+        OnMouseMove = IncomeViewMouseMove
+        OnDeletingItem = IncomeViewDeletingItem
+        DeleteButtonText = #1059#1076#1072#1083#1080#1090#1100
+        object IncomeBottomIndicator: TAniIndicator
+          Align = MostBottom
+          Height = 75.000000000000000000
+          Position.Y = 296.000000000000000000
+          Visible = False
+          Width = 320.000000000000000000
+        end
+        object IncomeBottomHintLabel: TLabel
+          Align = MostBottom
+          StyledSettings = [Family, Style]
+          Height = 40.000000000000000000
+          Position.Y = 328.000000000000000000
+          TextSettings.Font.Size = 13.000000000000000000
+          TextSettings.FontColor = claSilver
+          TextSettings.HorzAlign = Center
+          Text = #1055#1086#1090#1103#1085#1080#1090#1077' '#1074#1074#1077#1088#1093', '#1095#1090#1086#1073#1099' '#1079#1072#1075#1088#1091#1079#1080#1090#1100' '#1089#1083#1077#1076#1091#1102#1097#1080#1077
+          Visible = False
+          Width = 320.000000000000000000
+        end
+        object IncomeTopIndicator: TAniIndicator
+          Align = MostTop
+          Height = 75.000000000000000000
+          Visible = False
+          Width = 320.000000000000000000
+        end
+        object IncomeTopHintLabel: TLabel
+          Align = MostTop
+          StyledSettings = [Family, Style]
+          Height = 40.000000000000000000
+          TextSettings.Font.Size = 13.000000000000000000
+          TextSettings.FontColor = claSilver
+          TextSettings.HorzAlign = Center
+          Text = #1055#1086#1090#1103#1085#1080#1090#1077' '#1074#1085#1080#1079', '#1095#1090#1086#1073#1099' '#1086#1073#1085#1086#1074#1080#1090#1100
+          Visible = False
+          Width = 320.000000000000000000
+        end
+        object IncomeTopUpdateTimer: TTimer
+          Enabled = False
+          Interval = 100
+          OnTimer = IncomeTopUpdateTimerTimer
+          Left = 232
+          Top = 204
+        end
+        object IncomeBottomUpdateTimer: TTimer
+          Enabled = False
+          Interval = 100
+          OnTimer = IncomeBottomUpdateTimerTimer
+          Left = 80
+          Top = 204
+        end
+      end
+    end
+    object OutcomeTab: TTabItem
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 19.000000000000000000
+      StyledSettings = [Family, Style, FontColor]
+      Height = 49.000000000000000000
+      IsSelected = False
+      TabOrder = 0
+      Text = #1054#1090#1087#1088#1072#1074#1083#1077#1085#1085#1099#1077
+      Width = 160.000000000000000000
+    end
+  end
+end

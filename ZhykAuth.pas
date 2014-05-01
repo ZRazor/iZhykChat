@@ -117,6 +117,7 @@ begin
   SecurityToken       := '';
   ChatThread          := TIdThreadComponent.Create(nil);
   ChatThread.OnRun    := ChatThreadRun;
+  ChatThread.Loop     := true;
 end;
 
 function TZhykAuth.CreateHTTPObject: TIdHTTP;
@@ -281,10 +282,12 @@ procedure TZhykAuth.Logout;
 var
   HTTP: TIdHTTP;
 begin
+  HTTP := CreateHTTPObject;
   try
     HTTP.Get('http://zhyk.ru/forum/login.php?do=logout&logouthash=' + SecurityToken);
   except
   end;
+  HTTP.Free;
   ClearData;
 end;
 
@@ -447,24 +450,20 @@ begin
 end;
 
 procedure TZhykAuth.ChatThreadRun(Sender: TIdThreadComponent);
-var
-  Content: String;
 begin
-  while true do
+  if not IsAuth then
   begin
-    if not IsAuth then
-    begin
-      StopChatUpdate;
-      raise Exception.Create('Для обновления чата нужна авторизация');
-    end;
-
-    UpdateChat;
-
-    Sender.Synchronize(SendChatUpdate);
-
-    sleep(FChatUpdateInterval);
+    StopChatUpdate;
+    raise Exception.Create('Для обновления чата нужна авторизация');
   end;
 
+  // Sender.Synchronize(UpdateChat);
+  UpdateChat;
+
+  Sender.Synchronize(SendChatUpdate);
+  // SendChatUpdate;
+
+  sleep(FChatUpdateInterval);
 end;
 
 procedure TZhykAuth.UpdateChat;

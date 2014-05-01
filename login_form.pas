@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Edit, FMX.Objects, chat_component, chat, IdBaseComponent,
+  FMX.Edit, FMX.Objects, zhyk_component, main, IdBaseComponent,
   IdThreadComponent;
 
 type
@@ -33,7 +33,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    procedure GoToChat(OnStart: Boolean = false);
+    procedure GoToMainForm(OnStart: Boolean = false);
   public
     { Public declarations }
   end;
@@ -52,7 +52,7 @@ begin
   finally
     if ZA.IsAuth then
     begin
-      GoToChat;
+      GoToMainForm;
     end
     else
     begin
@@ -77,7 +77,7 @@ begin
     except
     end;
     if ZA.IsAuth then
-      GoToChat(true)
+      GoToMainForm(true)
     else
     begin
       DeleteFile(COOKIE_FILE);
@@ -94,14 +94,14 @@ end;
 
 procedure TLoginForm.FormShow(Sender: TObject);
 begin
-  if SHOW_CHAT_ON_START then
+  if SHOW_MAIN_FORM_ON_START then
   begin
-    SHOW_CHAT_ON_START := false;
+    SHOW_MAIN_FORM_ON_START := false;
     Hide;
   end;
 end;
 
-procedure TLoginForm.GoToChat(OnStart: Boolean = false);
+procedure TLoginForm.GoToMainForm(OnStart: Boolean = false);
 var
   Coo: TStringList;
 begin
@@ -109,15 +109,15 @@ begin
   Coo.Text := ZA.GetCookies;
   Coo.SaveToFile(COOKIE_FILE);
   Coo.Free;
-  ZA.StartChatUpdate;
+//  ZA.StartChatUpdate;
   if OnStart then
   begin
-    SHOW_CHAT_ON_START := true;
+    SHOW_MAIN_FORM_ON_START := true;
   end
   else
   begin
-    ChatForm.ChatMemo.Text := '';
-    ChatForm.Show;
+    // MainForm.ChatList.Clear;
+     MainForm.Show;
   end;
   LoginPanel.Visible   := true;
   CaptchaPanel.Visible := false;

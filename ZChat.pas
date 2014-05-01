@@ -132,6 +132,7 @@ var
 begin
   Msg.Nick := StripHtmlMarkup(Msg.Nick);
   Msg.Text := StringReplace(Msg.Text, #9, '', [rfReplaceAll]);
+  Msg.Text := StringReplace(Msg.Text, #$D, '', [rfReplaceAll]);
   Msg.Text := StringReplace(Msg.Text, sLineBreak, '', [rfReplaceAll]);
   for i in SmilesReplace do
     Msg.Text := i.ReplaceStr(Msg.Text);
@@ -159,8 +160,8 @@ begin
   begin
     if (Msgs.Count - 1 >= i) and (Times.Count - 1 >= i) then
     begin
-      NewMsg.Nick       := Nicks.Item[i].Groups.Item[1].Value;
-      NewMsg.Text       := Msgs.Item[i].Groups.Item[1].Value;
+      NewMsg.Nick       := '<' + Nicks.Item[i].Groups.Item[1].Value;
+      NewMsg.Text       := '<' + Msgs.Item[i].Groups.Item[1].Value;
       NewMsg.ServerTime := Times.Item[i].Groups.Item[1].Value;
 
       NewMsg := HandleMsg(NewMsg);

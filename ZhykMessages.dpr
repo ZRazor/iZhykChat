@@ -1,23 +1,29 @@
-program ZhykChat;
+program ZhykMessages;
+
+
+
+
+
+{$R *.dres}
 
 uses
   System.StartUpCopy,
   FMX.MobilePreview,
   FMX.Forms,
   login_form in 'login_form.pas' {LoginForm},
-  chat in 'chat.pas' {ChatForm},
+  main in 'main.pas' {MainForm},
   ZhykAuth in 'ZhykAuth.pas',
-  chat_component in 'chat_component.pas',
+  zhyk_component in 'zhyk_component.pas',
   settings in 'settings.pas' {SettingsForm},
-  chat_utils in 'chat_utils.pas',
   ZChat in 'ZChat.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.FormFactor.Orientations := [TFormOrientation.Portrait, TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TLoginForm, LoginForm);
-  Application.CreateForm(TChatForm, ChatForm);
+  Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TSettingsForm, SettingsForm);
   Application.Run;
 
