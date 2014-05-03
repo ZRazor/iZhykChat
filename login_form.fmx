@@ -13,7 +13,7 @@ object LoginForm: TLoginForm
   DesignerWidth = 320
   DesignerHeight = 480
   DesignerDeviceName = 'iPhone'
-  DesignerOrientation = 2
+  DesignerOrientation = 0
   DesignerOSVersion = '7'
   object CaptchaPanel: TPanel
     Align = Client

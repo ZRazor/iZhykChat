@@ -12,9 +12,9 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\libZhykChat.so" Condition="'$(Config)'=='Debug'">
+        <DeployFile Include="Android\Debug\libZhykMessages.so" Condition="'$(Config)'=='Debug'">
             <RemoteDir>ZhykMessages\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>libZhykChat.so</RemoteName>
+            <RemoteName>libZhykMessages.so</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -111,18 +111,18 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_57x57.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>ZhykMessages.app\</RemoteDir>
-            <RemoteName>FM_ApplicationIcon_57x57.png</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="iOSDevice\Debug\ZhykMessages.info.plist" Condition="'$(Config)'=='Debug'">
             <RemoteDir>ZhykMessages.app\</RemoteDir>
             <RemoteName>Info.plist</RemoteName>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_57x57.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>ZhykMessages.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_57x57.png</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -200,25 +200,9 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="iOSDevice\Debug\ZhykMessages.dSYM" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
-            <RemoteName>ZhykMessages</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_1536x2008.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>ZhykMessages.app\</RemoteDir>
             <RemoteName>Default-Portrait@2x.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="iOSDevice\Debug\ZhykMessages.entitlements" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>ZhykMessages.app\</RemoteDir>
-            <RemoteName>Entitlements.plist</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -304,6 +288,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\ZhykMessages.dSYM" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
+            <RemoteName>ZhykMessages</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_1536x2048.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>ZhykMessages.app\</RemoteDir>
             <RemoteName>Default-Portrait@2x~ipad.png</RemoteName>
@@ -347,6 +339,14 @@
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_640x1136.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>ZhykMessages.app\</RemoteDir>
             <RemoteName>Default-568h@2x.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\ZhykMessages.entitlements" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>ZhykMessages.app\</RemoteDir>
+            <RemoteName>Entitlements.plist</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>

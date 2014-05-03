@@ -106,7 +106,7 @@ begin
   Coo.Text := ZA.GetCookies;
   Coo.SaveToFile(COOKIE_FILE);
   Coo.Free;
-//  ZA.StartChatUpdate;
+  // ZA.StartChatUpdate;
   if OnStart then
   begin
     SHOW_MAIN_FORM_ON_START := true;
@@ -114,7 +114,8 @@ begin
   else
   begin
     // MainForm.ChatList.Clear;
-     MainForm.Show;
+    MainForm.LoadFirstPages;
+    MainForm.Show;
   end;
   LoginPanel.Visible   := true;
   CaptchaPanel.Visible := false;

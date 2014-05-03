@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.519,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\zhyk_component.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat_component.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\login_form.fmx</Transaction>
     <Transaction>1899.12.30 00:00:00.000.500,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\ZChat.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.191,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.png</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\login_form.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.619,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat_component.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.147,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.bmp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.532,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.bmp=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.344,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit2.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat.fmx</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.344,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.130,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat_utils.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.947,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\ZhykChat.dproj=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\ZhykMessages.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.407,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\read.png</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.754,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\settings.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.344,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.754,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\settings.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.fmx</Transaction>
     <Transaction>1899.12.30 00:00:00.000.136,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.895,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.png=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.933,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.041,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat_utils.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.619,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat_component.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.104,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\ZhykAuth.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.235,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\ZhykChat.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\login_form.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.754,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\settings.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.951,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\main.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.951,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\main.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.968,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\login_form.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.951,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.235,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\ZhykChat.dproj=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.407,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\read.png</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.519,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat_component.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\zhyk_component.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.765,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.png</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.041,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat_utils.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.130,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat_utils.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.307,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.344,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\chat.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.104,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\ZhykAuth.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.933,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.319,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.754,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\settings.pas=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.191,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.png</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.895,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\unread.png=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.722,=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iOSZhykChat\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.947,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\ZhykMessages.dproj=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\ZhykChat.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.951,C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\chat.fmx=C:\Users\Razor\Documents\Embarcadero\Studio\Projects\iZhykChat\main.fmx</Transaction>
   </Transactions>
 	<BT_BuildType>Debug</BT_BuildType>
 	<MobileDevice>iPhone</MobileDevice>

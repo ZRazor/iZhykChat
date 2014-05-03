@@ -16,10 +16,24 @@ uses
   ZChat;
 
 type
+  TPMFolder = (pfIncome, pfOutcome);
+
   TAjaxUser = record
     Nick: string;
     ID: string;
   end;
+
+  TPMessageInfo = record
+    ID: String;
+    Title: String;
+    Time: String;
+    Date: String;
+    Sender: String;
+    SenderID: String;
+    Unread: Boolean;
+  end;
+
+  TArrayOfPMessageInfo = array of TPMessageInfo;
 
   TArrayOfAjaxUsers = array of TAjaxUser;
 
@@ -36,6 +50,10 @@ type
     ReCaptchaImgHash:     string;
     HumanVerifyHash:      string;
     FLogin:               string;
+    FIncomePMFolder:      TArrayOfPMessageInfo;
+    FOutcomePMFolder:     TArrayOfPMessageInfo;
+    FIncomeMaxPage:       Integer;
+    FOutcomeMaxPage:      Integer;
     FPasswordMD5:         string;
     FIsAuth:              Boolean;
     FIsAuthBeforeCaptcha: Boolean;
@@ -54,7 +72,14 @@ type
     destructor Destroy;
     function GetCookies: string;
     function FindAjaxUsers(PartOfNick: string): TArrayOfAjaxUsers;
+    function GetPMFolderCount(Folder: TPMFolder): Integer;
+    function GetPM(Index: Integer; Folder: TPMFolder): TPMessageInfo;
+    function GetPMMaxPage(Folder: TPMFolder): Integer;
+    procedure AddPM(Msg: TPMessageInfo; Folder: TPMFolder);
+    procedure SetIncomePMRead(Index: Integer);
     procedure SetCookies(Cookies: string);
+    procedure LoadPMFolder(Folder: TPMFolder; Page: Integer);
+    procedure ClearPMFolder(Folder: TPMFolder);
     procedure AuthBeforeCaptcha(Login, Password: string; CaptchaImg: TImage);
     procedure ReloadCaptcha(CaptchaImg: TImage);
     procedure AuthAfterCaptcha(CaptchaText: string);
@@ -339,6 +364,132 @@ end;
 
 // ===================PM PM PM PM PM PM========================//
 
+procedure TZhykAuth.ClearPMFolder(Folder: TPMFolder);
+begin
+  case Folder of
+    pfIncome:
+      begin
+        SetLength(FIncomePMFolder, 0);
+      end;
+    pfOutcome:
+      begin
+        SetLength(FOutcomePMFolder, 0);
+      end;
+  end;
+end;
+
+procedure TZhykAuth.LoadPMFolder(Folder: TPMFolder; Page: Integer);
+const
+  REG_DATE      = '<span style="float:right" class="smallfont">';
+  REG_TIME      = '<span style="float:right" class="time">';
+  REG_TITLE     = '<a href="private.php?do=showpm&amp;pmid=';
+  REG_SENDER    = '<span style="cursor:pointer" onclick="window.location=''member.php?u=';
+  REG_LAST_PAGE = '<td class="vbmenu_control_nav" style="font-weight:normal">';
+var
+  HTTP:     TIdHTTP;
+  FolderID: String;
+  S:        String;
+  MaxPage:  String;
+  PM:       TPMessageInfo;
+begin
+  HTTP := CreateHTTPObject;
+  case Folder of
+    pfIncome:
+      FolderID := '0';
+    pfOutcome:
+      FolderID := '-1';
+  end;
+  try
+    S := HTTP.Get('http://zhyk.ru/forum/private.php?folderid=' + FolderID + '&pp=50&sort=date&page=' + inttostr(Page));
+  except
+  end;
+  MaxPage := '1';
+  if Pos(REG_LAST_PAGE, S) > 0 then
+    MaxPage := ParsSubString(ParsSubString(S, REG_LAST_PAGE, '/td>'), ' из ', '<');
+  case Folder of
+    pfIncome:
+      FIncomeMaxPage := strtoint(MaxPage);
+    pfOutcome:
+      FOutcomeMaxPage := strtoint(MaxPage);
+  end;
+  while Pos(REG_DATE, S) > 0 do
+  begin
+    PM.Unread := false;
+    PM.Date   := ParsSubString(S, REG_DATE, '<');
+    PM.Time   := ParsSubString(S, REG_TIME, '<');
+    PM.ID     := ParsSubString(S, REG_TITLE, '"');
+    PM.Title  := ParsSubString(S, REG_TITLE + PM.ID + '">', '</a>');
+    if Pos('<strong>', PM.Title) > 0 then
+    begin
+      PM.Unread := true;
+      PM.Title  := ParsSubString(PM.Title, '<strong>', '<');
+    end;
+    PM.SenderID := ParsSubString(S, REG_SENDER, '''');
+    PM.Sender   := ParsSubString(S, REG_SENDER + PM.SenderID + ''';">', '<');
+    AddPM(PM, Folder);
+    delete(S, 1, Pos(REG_SENDER, S) + 5);
+  end;
+end;
+
+procedure TZhykAuth.SetIncomePMRead(Index: Integer);
+begin
+  FIncomePMFolder[Index].Unread := false
+end;
+
+function TZhykAuth.GetPM(Index: Integer; Folder: TPMFolder): TPMessageInfo;
+begin
+  case Folder of
+    pfIncome:
+      begin
+        Result := FIncomePMFolder[Index];
+      end;
+    pfOutcome:
+      begin
+        Result := FOutcomePMFolder[Index];
+      end;
+  end;
+end;
+
+function TZhykAuth.GetPMFolderCount(Folder: TPMFolder): Integer;
+begin
+  case Folder of
+    pfIncome:
+      begin
+        Result := Length(FIncomePMFolder);
+      end;
+    pfOutcome:
+      begin
+        Result := Length(FOutcomePMFolder);
+      end;
+  end;
+end;
+
+function TZhykAuth.GetPMMaxPage(Folder: TPMFolder): Integer;
+begin
+  case Folder of
+    pfIncome:
+      Result := FIncomeMaxPage;
+    pfOutcome:
+      Result := FOutcomeMaxPage;
+  end;
+end;
+
+procedure TZhykAuth.AddPM(Msg: TPMessageInfo; Folder: TPMFolder);
+begin
+  case Folder of
+    pfIncome:
+      begin
+        SetLength(FIncomePMFolder, Length(FIncomePMFolder) + 1);
+        FIncomePMFolder[High(FIncomePMFolder)] := Msg;
+      end;
+    pfOutcome:
+      begin
+        SetLength(FOutcomePMFolder, Length(FOutcomePMFolder) + 1);
+        FOutcomePMFolder[High(FOutcomePMFolder)] := Msg;
+      end;
+  end;
+end;
+
 procedure TZhykAuth.SendChatMsg(Msg: String);
 var
   Post: TIdMultipartFormDataStream;
@@ -420,7 +571,7 @@ begin
     AddFormField('title', Title, 'windows-1251').ContentTransfer := '8bit';
     AddFormField('message', MessageBody, 'windows-1251').ContentTransfer := '8bit';
     AddFormField('wysiwyg', '0');
-    AddFormField('iconid', IntToStr(IconIndex)); // !
+    AddFormField('iconid', inttostr(IconIndex)); // !
     AddFormField('s', '');
     AddFormField('securitytoken', SecurityToken);
     AddFormField('do', 'insertpm');

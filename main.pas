@@ -7,7 +7,7 @@ uses
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.Memo, FMX.Edit, FMX.StdCtrls, zhyk_component, zchat, settings, FMX.ListBox,
-  FMX.ListView.Types, FMX.ListView, FMX.TabControl;
+  FMX.ListView.Types, FMX.ListView, FMX.TabControl, ZhykAuth;
 
 type
   TMainForm = class(TForm)
@@ -36,13 +36,18 @@ type
   private
     UpdatingIncome:         Boolean;
     IncomeCurrentMaxScroll: Single;
+    IncomePage:             Integer;
+    IncomeMaxPage:          Boolean;
     ReloadingIncome:        Boolean;
     DisableScrollActions:   Boolean;
 
     UnreadBitmap: TBitmap;
     ReadBitmap:   TBitmap;
+
+    procedure AddItemToList(PM: TPMessageInfo; Folder: TPMFolder);
   public
     procedure OnChatTimer(Sender: TObject);
+    procedure LoadFirstPages;
   end;
 
 var
@@ -53,6 +58,41 @@ implementation
 {$R *.fmx}
 { TChatForm }
 
+procedure TMainForm.AddItemToList(PM: TPMessageInfo; Folder: TPMFolder);
+var
+  LImage: TListItemImage;
+  LItem:  TListViewItem;
+begin
+  case Folder of
+    pfIncome:
+      LItem := IncomeView.Items.AddItem;
+    pfOutcome:
+      LItem := nil; // !
+  end;
+
+  with LItem do
+  begin
+    Text                 := PM.Title;
+    Detail               := PM.Sender + ' ' + PM.Date + ' ' + PM.Time;
+    LImage               := TListItemImage.Create(LItem);
+    LImage.Name          := '';
+    LImage.Align         := TListItemAlign.Leading;
+    LImage.VertAlign     := TListItemAlign.Center;
+    LImage.PlaceOffset.Y := 2;
+    LImage.PlaceOffset.X := 0;
+    LImage.Width         := 35;
+    LImage.Height        := 45;
+    if Folder = pfIncome then
+    begin
+      if PM.Unread then
+        LImage.Bitmap := UnreadBitmap
+      else
+        LImage.Bitmap := ReadBitmap;
+    end;
+  end;
+
+end;
+
 procedure TMainForm.FormActivate(Sender: TObject);
 begin
   // if ZA.IsAuth then
@@ -61,43 +101,28 @@ end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
-  i:      Integer;
-  LImage: TListItemImage;
-  LItem:  TListViewItem;
-  TRes:   TResourceStream;
+  TRes: TResourceStream;
 begin
   UnreadBitmap := TBitmap.Create;
   ReadBitmap   := TBitmap.Create;
   TRes         := TResourceStream.Create(hInstance, 'UNREAD_PNG', RT_RCDATA);
   UnreadBitmap.LoadFromStream(TRes);
   TRes.Free;
+
+  TRes := TResourceStream.Create(hInstance, 'READ_PNG', RT_RCDATA);
+  ReadBitmap.LoadFromStream(TRes);
+  TRes.Free;
+
+  IncomePage    := 1;
+  IncomeMaxPage := false;
+  ZA.ClearPMFolder(pfIncome);
+
   if SHOW_MAIN_FORM_ON_START then
-    Show;
-  for i := 1 to 30 do
   begin
-    LItem := IncomeView.Items.AddItem;
-    with LItem do
-    begin
-      Text                 := 'пожалуйста подскажи по своему бруту';
-      Detail               := 'Legolasses 07.04.2014, 09:09';
-      LImage               := TListItemImage.Create(LItem);
-      LImage.Name          := 'Resim';
-      LImage.Align         := TListItemAlign.Leading; // En Saр
-      LImage.VertAlign     := TListItemAlign.Center; // Orta
-      LImage.PlaceOffset.Y := 2;
-      LImage.PlaceOffset.X := 0;
-      LImage.Width         := 35;
-      LImage.Height        := 45;
-      LImage.Bitmap        := UnreadBitmap;
-      // LImage.OwnsBitmap       := True;
-      // LImage.Bitmap           := TBitmap.Create(0, 0);
-      // MS := TMemoryStream.Create;
-      // IdHttp.Get(Bilgi.strDescription, MS);
-      // MS.Seek(0,soFromBeginning);
-      // LImage.Bitmap.LoadFromStream(MS);
-      // MS.Free;
-    end;
+    Show;
+    LoadFirstPages;
   end;
+
   // ZA.OnChatUpdate := ChatForm.OnChatTimer;
 end;
 
@@ -109,6 +134,7 @@ end;
 
 procedure TMainForm.IncomeBottomUpdateTimerTimer(Sender: TObject);
 begin
+  IncomeCurrentMaxScroll := IncomeView.ItemCount * IncomeView.ItemAppearance.ItemHeight - IncomeView.Height;
   if IncomeView.ScrollViewPos < IncomeCurrentMaxScroll + 19 then
   begin
     IncomeBottomUpdateTimer.Enabled := false;
@@ -149,8 +175,10 @@ begin
 end;
 
 procedure TMainForm.IncomeViewMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+var
+  i, sidx: Integer;
 begin
-  if {DisableScrollActions or} UpdatingIncome or ReloadingIncome then
+  if { DisableScrollActions or } UpdatingIncome or ReloadingIncome then
     exit;
   if IncomeView.ScrollViewPos < -80 then
   begin
@@ -160,6 +188,22 @@ begin
     IncomeTopIndicator.Visible   := true;
     IncomeTopIndicator.Enabled   := true;
     IncomeTopUpdateTimer.Enabled := true;
+
+    // !
+
+    ZA.ClearPMFolder(pfIncome);
+    IncomePage    := 1;
+    IncomeMaxPage := false;
+    ZA.LoadPMFolder(pfIncome, IncomePage);
+    for i := 0 to ZA.GetPMFolderCount(pfIncome) - 1 do
+    begin
+      AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
+    end;
+
+    if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
+      IncomeMaxPage := true;
+    // !
+
     exit;
   end;
   if not ReloadingIncome and (IncomeView.ScrollViewPos < -20) then
@@ -168,6 +212,10 @@ begin
     IncomeTopUpdateTimer.Enabled := true;
     exit;
   end;
+  if IncomeView.ItemCount = 0 then
+    exit;
+  if IncomeMaxPage then
+    exit;
   IncomeCurrentMaxScroll := IncomeView.ItemCount * IncomeView.ItemAppearance.ItemHeight - IncomeView.Height;
   if IncomeView.ScrollViewPos > IncomeCurrentMaxScroll + 80 then
   begin
@@ -177,6 +225,15 @@ begin
     IncomeBottomIndicator.Visible   := true;
     IncomeBottomIndicator.Enabled   := true;
     IncomeBottomUpdateTimer.Enabled := true;
+    Inc(IncomePage);
+    ZA.LoadPMFolder(pfIncome, IncomePage);
+    sidx  := IncomeView.ItemCount - 1;
+    for i := sidx to ZA.GetPMFolderCount(pfIncome) - 1 do
+    begin
+      AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
+    end;
+    if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
+      IncomeMaxPage := true;
     exit;
   end;
   if not UpdatingIncome and (IncomeView.ScrollViewPos > IncomeCurrentMaxScroll + 20) then
@@ -185,6 +242,19 @@ begin
     IncomeBottomUpdateTimer.Enabled := true;
     exit;
   end;
+end;
+
+procedure TMainForm.LoadFirstPages;
+var
+  i: Integer;
+begin
+  ZA.LoadPMFolder(pfIncome, IncomePage);
+  for i := 0 to ZA.GetPMFolderCount(pfIncome) - 1 do
+  begin
+    AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
+  end;
+  if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
+    IncomeMaxPage := true;
 end;
 
 procedure TMainForm.OnChatTimer(Sender: TObject);
