@@ -35,6 +35,8 @@ implementation
 
 {$R *.fmx}
 
+uses main;
+
 procedure TNewMsgForm.AddReceiverButtonClick(Sender: TObject);
 begin
   AddUserForm.ClearFields;
@@ -51,6 +53,7 @@ end;
 procedure TNewMsgForm.CloseButtonClick(Sender: TObject);
 begin
   Hide;
+  MainForm.Show;
 end;
 
 procedure TNewMsgForm.SendButtonClick(Sender: TObject);

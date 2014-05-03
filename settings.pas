@@ -35,6 +35,7 @@ uses main, login_form;
 procedure TSettingsForm.CloseButtonClick(Sender: TObject);
 begin
   Hide;
+  MainForm.Show;
 end;
 
 procedure TSettingsForm.LogoutButtonClick(Sender: TObject);

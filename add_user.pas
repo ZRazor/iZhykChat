@@ -40,6 +40,7 @@ begin
     NewMsgForm.ReceiversEdit.Text := NewMsgForm.ReceiversEdit.Text + '; ';
   NewMsgForm.ReceiversEdit.Text   := NewMsgForm.ReceiversEdit.Text + UsersListBox.Selected.Text;
   Hide;
+  NewMsgForm.Show;
 end;
 
 procedure TAddUserForm.ClearFields;
@@ -52,6 +53,7 @@ end;
 procedure TAddUserForm.CloseButtonClick(Sender: TObject);
 begin
   Hide;
+  NewMsgForm.Show;
 end;
 
 procedure TAddUserForm.SearchButtonClick(Sender: TObject);
@@ -62,10 +64,10 @@ begin
   UsersListBox.Clear;
   AddButton.Enabled := false;
   users             := ZA.FindAjaxUsers(NickEdit.Text);
-  UsersListBox.BeginUpdate;
+  // UsersListBox.BeginUpdate;
   for i := 0 to High(users) do
     UsersListBox.Items.Add(users[i].Nick);
-  UsersListBox.EndUpdate;
+  // UsersListBox.EndUpdate;
   if length(users) > 0 then
     AddButton.Enabled    := true;
   UsersListBox.ItemIndex := 0;

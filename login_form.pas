@@ -80,12 +80,7 @@ begin
     else
     begin
       DeleteFile(COOKIE_FILE);
-      LoginPanel.Visible := true;
     end;
-  end
-  else
-  begin
-    LoginPanel.Visible := true;
   end;
 end;
 
@@ -117,8 +112,8 @@ begin
     MainForm.LoadFirstPages;
     MainForm.Show;
   end;
-  LoginPanel.Visible   := true;
-  CaptchaPanel.Visible := false;
+  // LoginPanel.Visible   := true;
+  // CaptchaPanel.Visible := false;
 end;
 
 procedure TLoginForm.LoginButtonClick(Sender: TObject);

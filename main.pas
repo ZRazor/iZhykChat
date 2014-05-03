@@ -119,11 +119,13 @@ begin
   ReadBitmap.LoadFromStream(TRes);
   TRes.Free;
 
+  IncomePage := 1;
+
   ZA.OnPMFolderLoad  := OnFolderLoad;
   ZA.OnPMFolderClear := OnFolderClear;
 
   ZA.ClearPMFolder(pfIncome);
-
+  //
   if SHOW_MAIN_FORM_ON_START then
   begin
     Show;
@@ -229,8 +231,6 @@ begin
 end;
 
 procedure TMainForm.LoadFirstPages;
-var
-  i: Integer;
 begin
   ZA.LoadPMFolder(pfIncome, IncomePage);
 end;

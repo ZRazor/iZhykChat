@@ -77,7 +77,6 @@ object LoginForm: TLoginForm
   object LoginPanel: TPanel
     Align = Client
     Height = 460.000000000000000000
-    Visible = False
     Width = 320.000000000000000000
     TabOrder = 0
     object LoginButton: TButton
