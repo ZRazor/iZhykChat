@@ -7,7 +7,7 @@ uses
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.Memo, FMX.Edit, FMX.StdCtrls, zhyk_component, zchat, settings, FMX.ListBox,
-  FMX.ListView.Types, FMX.ListView, FMX.TabControl, ZhykAuth;
+  FMX.ListView.Types, FMX.ListView, FMX.TabControl, ZhykAuth, new_msg;
 
 type
   TMainForm = class(TForm)
@@ -33,6 +33,7 @@ type
     procedure IncomeViewMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
     procedure IncomeBottomUpdateTimerTimer(Sender: TObject);
     procedure IncomeTopUpdateTimerTimer(Sender: TObject);
+    procedure NewMsgButtonClick(Sender: TObject);
   private
     UpdatingIncome:         Boolean;
     IncomeCurrentMaxScroll: Single;
@@ -45,8 +46,10 @@ type
     ReadBitmap:   TBitmap;
 
     procedure AddItemToList(PM: TPMessageInfo; Folder: TPMFolder);
-  public
+    procedure OnFolderClear(Sender: TObject; Folder: TPMFolder);
+    procedure OnFolderLoad(Sender: TObject; Folder: TPMFolder);
     procedure OnChatTimer(Sender: TObject);
+  public
     procedure LoadFirstPages;
   end;
 
@@ -62,13 +65,16 @@ procedure TMainForm.AddItemToList(PM: TPMessageInfo; Folder: TPMFolder);
 var
   LImage: TListItemImage;
   LItem:  TListViewItem;
+  View:   TListView;
 begin
   case Folder of
     pfIncome:
-      LItem := IncomeView.Items.AddItem;
+      View := IncomeView;
     pfOutcome:
       LItem := nil; // !
   end;
+
+  LItem := View.Items.AddItem;
 
   with LItem do
   begin
@@ -113,8 +119,9 @@ begin
   ReadBitmap.LoadFromStream(TRes);
   TRes.Free;
 
-  IncomePage    := 1;
-  IncomeMaxPage := false;
+  ZA.OnPMFolderLoad  := OnFolderLoad;
+  ZA.OnPMFolderClear := OnFolderClear;
+
   ZA.ClearPMFolder(pfIncome);
 
   if SHOW_MAIN_FORM_ON_START then
@@ -175,8 +182,6 @@ begin
 end;
 
 procedure TMainForm.IncomeViewMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
-var
-  i, sidx: Integer;
 begin
   if { DisableScrollActions or } UpdatingIncome or ReloadingIncome then
     exit;
@@ -188,22 +193,8 @@ begin
     IncomeTopIndicator.Visible   := true;
     IncomeTopIndicator.Enabled   := true;
     IncomeTopUpdateTimer.Enabled := true;
-
-    // !
-
     ZA.ClearPMFolder(pfIncome);
-    IncomePage    := 1;
-    IncomeMaxPage := false;
     ZA.LoadPMFolder(pfIncome, IncomePage);
-    for i := 0 to ZA.GetPMFolderCount(pfIncome) - 1 do
-    begin
-      AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
-    end;
-
-    if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
-      IncomeMaxPage := true;
-    // !
-
     exit;
   end;
   if not ReloadingIncome and (IncomeView.ScrollViewPos < -20) then
@@ -227,13 +218,6 @@ begin
     IncomeBottomUpdateTimer.Enabled := true;
     Inc(IncomePage);
     ZA.LoadPMFolder(pfIncome, IncomePage);
-    sidx  := IncomeView.ItemCount - 1;
-    for i := sidx to ZA.GetPMFolderCount(pfIncome) - 1 do
-    begin
-      AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
-    end;
-    if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
-      IncomeMaxPage := true;
     exit;
   end;
   if not UpdatingIncome and (IncomeView.ScrollViewPos > IncomeCurrentMaxScroll + 20) then
@@ -249,12 +233,12 @@ var
   i: Integer;
 begin
   ZA.LoadPMFolder(pfIncome, IncomePage);
-  for i := 0 to ZA.GetPMFolderCount(pfIncome) - 1 do
-  begin
-    AddItemToList(ZA.GetPM(i, pfIncome), pfIncome);
-  end;
-  if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
-    IncomeMaxPage := true;
+end;
+
+procedure TMainForm.NewMsgButtonClick(Sender: TObject);
+begin
+  NewMsgForm.ClearFields;
+  NewMsgForm.Show;
 end;
 
 procedure TMainForm.OnChatTimer(Sender: TObject);
@@ -268,6 +252,57 @@ begin
   // ZA.chat.Messages[i].Text]));
   // ChatMemo.Lines.EndUpdate;
   // ChatMemo.GoToTextEnd;
+end;
+
+procedure TMainForm.OnFolderClear(Sender: TObject; Folder: TPMFolder);
+begin
+  case Folder of
+    pfIncome:
+      begin
+        IncomePage    := 1;
+        IncomeMaxPage := false;
+        IncomeView.ClearItems;
+      end;
+    pfOutcome:
+      begin
+
+      end;
+  end;
+
+end;
+
+procedure TMainForm.OnFolderLoad(Sender: TObject; Folder: TPMFolder);
+var
+  i, sidx: Integer;
+begin
+  case Folder of
+    pfIncome:
+      begin
+        sidx := IncomeView.ItemCount - 1;
+        IncomeView.BeginUpdate;
+      end;
+    pfOutcome:
+      begin
+
+      end;
+  end;
+  if sidx = -1 then
+    sidx := 0;
+  for i  := sidx to ZA.GetPMFolderCount(Folder) - 1 do
+    AddItemToList(ZA.GetPM(i, Folder), Folder);
+  case Folder of
+    pfIncome:
+      begin
+        IncomeView.EndUpdate;
+        if ZA.GetPMMaxPage(pfIncome) <= IncomePage then
+          IncomeMaxPage := true;
+      end;
+    pfOutcome:
+      begin
+
+      end;
+  end;
+
 end;
 
 procedure TMainForm.SettingsButtonClick(Sender: TObject);

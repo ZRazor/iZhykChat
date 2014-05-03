@@ -43,6 +43,7 @@ object MainForm: TMainForm
       StyleLookup = 'addtoolbutton'
       TabOrder = 1
       Width = 44.000000000000000000
+      OnClick = NewMsgButtonClick
     end
   end
   object MsgTabs: TTabControl

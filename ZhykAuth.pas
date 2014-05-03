@@ -39,6 +39,8 @@ type
 
   TChatUpdateEvent = procedure(Sender: TObject) of object;
 
+  TPMFolderEvent = procedure(Sender: TObject; Folder: TPMFolder) of object;
+
 type
   TZhykAuth = class
   private
@@ -59,6 +61,8 @@ type
     FIsAuthBeforeCaptcha: Boolean;
     FChatUpdateInterval:  Integer;
     FOnChatUpdate:        TChatUpdateEvent;
+    FOnPMFolderClear:     TPMFolderEvent;
+    FOnPMFolderLoad:      TPMFolderEvent;
     function CreateHTTPObject: TIdHTTP;
     procedure LoadCaptcha(CaptchaImg: TImage; Reload: Boolean = false);
     procedure ClearData;
@@ -83,7 +87,7 @@ type
     procedure AuthBeforeCaptcha(Login, Password: string; CaptchaImg: TImage);
     procedure ReloadCaptcha(CaptchaImg: TImage);
     procedure AuthAfterCaptcha(CaptchaText: string);
-    procedure SendPM(Recipients, BccRecipients: TStringList; Title, MessageBody: string; IconIndex: Integer = 0);
+    procedure SendPM(Recipients, BccRecipients: String; Title, MessageBody: string; IconIndex: Integer = 0);
     procedure SendChatMsg(Msg: String);
     procedure ParsSecureToken;
     procedure Logout;
@@ -93,6 +97,8 @@ type
     property IsAuth: Boolean read FIsAuth;
     property IsAuthBeforeCaptcha: Boolean read FIsAuthBeforeCaptcha;
     property OnChatUpdate: TChatUpdateEvent read FOnChatUpdate write FOnChatUpdate;
+    property OnPMFolderClear: TPMFolderEvent read FOnPMFolderClear write FOnPMFolderClear;
+    property OnPMFolderLoad: TPMFolderEvent read FOnPMFolderLoad write FOnPMFolderLoad;
     property ChatUpdateInterval: Integer read FChatUpdateInterval write SetCharUpdateInterval;
   end;
 
@@ -376,6 +382,8 @@ begin
         SetLength(FOutcomePMFolder, 0);
       end;
   end;
+  if Assigned(FOnPMFolderClear) then
+    FOnPMFolderClear(self, Folder);
 end;
 
 procedure TZhykAuth.LoadPMFolder(Folder: TPMFolder; Page: Integer);
@@ -429,6 +437,8 @@ begin
     AddPM(PM, Folder);
     delete(S, 1, Pos(REG_SENDER, S) + 5);
   end;
+  if Assigned(FOnPMFolderLoad) then
+    FOnPMFolderLoad(self, Folder);
 end;
 
 procedure TZhykAuth.SetIncomePMRead(Index: Integer);
@@ -490,28 +500,6 @@ begin
   end;
 end;
 
-procedure TZhykAuth.SendChatMsg(Msg: String);
-var
-  Post: TIdMultipartFormDataStream;
-  HTTP: TIdHTTP;
-begin
-  Post := TIdMultipartFormDataStream.Create;
-  with Post do
-  begin
-    AddFormField('s', '');
-    AddFormField('securitytoken', SecurityToken);
-    AddFormField('do', 'cb_postnew');
-    AddFormField('ccb_newmessage', Msg, 'windows-1251').ContentTransfer := '8bit';
-  end;
-  HTTP := CreateHTTPObject;
-  try
-    HTTP.Post('http://zhyk.ru/forum/misc.php', Post);
-  except
-  end;
-  HTTP.Free;
-  Post.Free;
-end;
-
 function TZhykAuth.FindAjaxUsers(PartOfNick: string): TArrayOfAjaxUsers;
 var
   Post: TIdMultipartFormDataStream;
@@ -545,29 +533,20 @@ begin
   end;
 end;
 
-procedure TZhykAuth.SendPM(Recipients, BccRecipients: TStringList; Title, MessageBody: string; IconIndex: Integer = 0);
+procedure TZhykAuth.SendPM(Recipients, BccRecipients: String; Title, MessageBody: string; IconIndex: Integer = 0);
 var
-  Post:           TIdMultipartFormDataStream;
-  HTTP:           TIdHTTP;
-  S:              string;
-  I:              Integer;
-  ARecipients:    string;
-  ABccRecipients: string;
+  Post: TIdMultipartFormDataStream;
+  HTTP: TIdHTTP;
+  S:    string;
 begin
   CheckAuth;
   Post := TIdMultipartFormDataStream.Create;
-  if Recipients.Count + BccRecipients.Count = 0 then
-    raise Exception.Create('Отсуствуют получатели');
-  ARecipients      := '';
-  for I            := 0 to Recipients.Count - 1 do
-    ARecipients    := ARecipients + Recipients[I] + ' ;';
-  ABccRecipients   := '';
-  for I            := 0 to BccRecipients.Count - 1 do
-    ABccRecipients := ABccRecipients + BccRecipients[I] + ' ;';
+  if Recipients + BccRecipients = '' then
+    raise Exception.Create('Отсутствуют получатели');
   with Post do
   begin
-    AddFormField('recipients', ARecipients, 'windows-1251').ContentTransfer := '8bit';
-    AddFormField('bccrecipients', ABccRecipients, 'windows-1251').ContentTransfer := '8bit';
+    AddFormField('recipients', Recipients, 'windows-1251').ContentTransfer := '8bit';
+    AddFormField('bccrecipients', BccRecipients, 'windows-1251').ContentTransfer := '8bit';
     AddFormField('title', Title, 'windows-1251').ContentTransfer := '8bit';
     AddFormField('message', MessageBody, 'windows-1251').ContentTransfer := '8bit';
     AddFormField('wysiwyg', '0');
@@ -592,11 +571,33 @@ end;
 
 // ===================CHAT CHAT CHAT CHAT========================//
 
+procedure TZhykAuth.SendChatMsg(Msg: String);
+var
+  Post: TIdMultipartFormDataStream;
+  HTTP: TIdHTTP;
+begin
+  Post := TIdMultipartFormDataStream.Create;
+  with Post do
+  begin
+    AddFormField('s', '');
+    AddFormField('securitytoken', SecurityToken);
+    AddFormField('do', 'cb_postnew');
+    AddFormField('ccb_newmessage', Msg, 'windows-1251').ContentTransfer := '8bit';
+  end;
+  HTTP := CreateHTTPObject;
+  try
+    HTTP.Post('http://zhyk.ru/forum/misc.php', Post);
+  except
+  end;
+  HTTP.Free;
+  Post.Free;
+end;
+
 procedure TZhykAuth.SendChatUpdate;
 begin
   if Assigned(FOnChatUpdate) then
   begin
-    FOnChatUpdate(Self);
+    FOnChatUpdate(self);
   end;
 end;
 

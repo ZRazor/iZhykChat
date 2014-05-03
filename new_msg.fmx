@@ -1,0 +1,98 @@
+object NewMsgForm: TNewMsgForm
+  Left = 0
+  Top = 0
+  Caption = #1053#1086#1074#1086#1077' '#1089#1086#1086#1073#1097#1077#1085#1080#1077
+  ClientHeight = 460
+  ClientWidth = 320
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 320
+  DesignerHeight = 480
+  DesignerDeviceName = 'iPhone'
+  DesignerOrientation = 0
+  DesignerOSVersion = '7'
+  object NewMsgBar: TToolBar
+    Align = MostTop
+    Height = 44.000000000000000000
+    TabOrder = 0
+    Width = 320.000000000000000000
+    object NewMsgLabel: TLabel
+      Align = Contents
+      StyledSettings = [Family, Style, FontColor]
+      Height = 44.000000000000000000
+      TextSettings.Font.Size = 15.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = #1053#1086#1074#1086#1077' '#1057#1086#1086#1073#1097#1077#1085#1080#1077
+      Width = 320.000000000000000000
+    end
+    object CloseButton: TButton
+      Align = MostLeft
+      Height = 44.000000000000000000
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 0
+      Text = #1053#1072#1079#1072#1076
+      Width = 75.000000000000000000
+      OnClick = CloseButtonClick
+    end
+    object SendButton: TButton
+      Height = 44.000000000000000000
+      Position.X = 232.000000000000000000
+      TabOrder = 2
+      Text = #1054#1090#1087#1088#1072#1074#1080#1090#1100
+      Width = 89.000000000000000000
+      OnClick = SendButtonClick
+    end
+  end
+  object ReceiversEdit: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Anchors = [akLeft, akTop, akRight]
+    TabOrder = 1
+    Position.X = 8.000000000000000000
+    Position.Y = 72.000000000000000000
+    Width = 265.000000000000000000
+    Height = 30.000000000000000000
+  end
+  object ReceiversLabel: TLabel
+    Height = 21.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 48.000000000000000000
+    Text = #1055#1086#1083#1091#1095#1072#1090#1077#1083#1080':'
+    Width = 113.000000000000000000
+  end
+  object AddReceiverButton: TButton
+    Anchors = [akTop, akRight]
+    Height = 44.000000000000000000
+    Position.X = 273.000000000000000000
+    Position.Y = 65.000000000000000000
+    StyleLookup = 'addtoolbutton'
+    TabOrder = 3
+    Width = 44.000000000000000000
+    OnClick = AddReceiverButtonClick
+  end
+  object LabelTitle: TLabel
+    Height = 21.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 104.000000000000000000
+    Text = #1047#1072#1075#1086#1083#1086#1074#1086#1082':'
+    Width = 105.000000000000000000
+  end
+  object TitleEdit: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Anchors = [akLeft, akTop, akRight]
+    TabOrder = 5
+    Position.X = 8.000000000000000000
+    Position.Y = 128.000000000000000000
+    Width = 305.000000000000000000
+    Height = 30.000000000000000000
+  end
+  object TextMemo: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Height = 292.000000000000000000
+    Position.Y = 168.000000000000000000
+    TabOrder = 6
+    Width = 321.000000000000000000
+  end
+end
